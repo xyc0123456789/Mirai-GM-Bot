@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="DB2Tables"    targetRuntime="MyBatis3" defaultModelType="flat">
+        <plugin type="com.king.util.mybatis.LombokPlugin"/>
+        <plugin type="com.king.util.mybatis.OverIsMergeablePlugin"/>
+        <commentGenerator type="com.king.util.mybatis.MyCommentGenerator"/>
+<!--        <commentGenerator>-->
+<!--            <property name="suppressDate" value="true"/>-->
+<!--            <property name="suppressAllComments" value="true"/>-->
+<!--        </commentGenerator>-->
+
+
+
+        <!--数据库链接地址账号密码-->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/qq_bot"
+                        userId="appuser"
+                        password="123456">
+        </jdbcConnection>
+
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.king.db.pojo"
+                            targetProject="src/main/java">
+            <property name="enableSubPackages" value="false" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources">
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+
+        <javaClientGenerator targetPackage="com.king.db.dao"
+                             targetProject="src/main/java"
+                             type="ANNOTATEDMAPPER">
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+        <!--生成对应表及类名-->
+        <table tableName="group_special_list" domainObjectName="GroupSpecialList" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false"/>
+        <table tableName="sensitive_word" domainObjectName="SensitiveWord" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false"/>
+        <table tableName="account_config" domainObjectName="AccountConfig" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false"/>
+        <table tableName="members" domainObjectName="Members" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false"/>
+        <table tableName="contact_listen_list" domainObjectName="ContactListenList" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false"/>
+        <table tableName="command_permission" domainObjectName="CommandPermission" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false"/>
+        <table tableName="message_count" domainObjectName="MessageCount" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false"/>
+        <table tableName="message_record" domainObjectName="MessageRecord" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false"/>
+        <table tableName="temp_message_record" domainObjectName="TempMessageRecord" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false"/>
+        <table tableName="temp_group_special_list" domainObjectName="TempGroupSpecialList" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false"/>
+        <table tableName="key_word_result_record" domainObjectName="KeyWordResultRecord" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false"/>
+        <table tableName="subscription" domainObjectName="Subscription" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false"/>
+        <table tableName="bot_message_record" domainObjectName="BotMessageRecord" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false"/>
+        <table tableName="chat_request_record" domainObjectName="ChatRequestRecord" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false"/>
+        <table tableName="chat_user_info" domainObjectName="ChatUserInfo" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false"/>
+        <table tableName="open_ai_api_key" domainObjectName="OpenAIApiKey" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false"/>
+        <table tableName="spark_key" domainObjectName="SparkKey" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false"/>
+    </context>
+</generatorConfiguration>

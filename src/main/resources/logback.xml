@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration
+        xmlns="http://ch.qos.logback/xml/ns/logback"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback https://raw.githubusercontent.com/enricopulatzo/logback-XSD/master/src/main/xsd/logback.xsd">
+
+    <!-- 定义全局参数常量 -->
+    <!--    <property name="log.maxHistory" value="360"/>&lt;!&ndash; 360表示360个 &ndash;&gt;-->
+    <property name="log.maxFileSize" value="100GB"/><!-- 日志总保存量 100GB -->
+
+    <!-- 输出到控制台 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 输出的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}:  %msg%n</pattern>-->
+            <pattern>%date{yyyy-MM-dd HH:mm:ss} [%-5level] [%-4relative] [%15.15thread] [%-40.40logger{39}]  [%X{mdc_trace_id}]: %msg%n</pattern>
+            <charset>UTF-8</charset> <!-- 此处设置字符集，防止中文乱码 -->
+        </encoder>
+    </appender>
+
+
+
+    <!--INFO 级别日志-->
+    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/main.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按天回滚 daily -->
+            <!--            <fileNamePattern>logs/main%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>-->
+            <fileNamePattern>logs/main.log.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <!--如果当前是按天保存 日志最大的历史 360天 -->
+            <!--            <maxHistory>${log.maxHistory}</maxHistory>-->
+            <!-- 日志总保存量为100GB -->
+            <totalSizeCap>${log.maxFileSize}</totalSizeCap>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!--文件达到 最大100MB时会被压缩和切割 -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}:  %msg%n</pattern>-->
+            <!--            <pattern>[%d{MM-dd HH:mm:ss.SSS }] [%thread] [%.-1level] [%F %L] %m%n</pattern>-->
+            <pattern>%date{yyyy-MM-dd HH:mm:ss} [%-5level] [%-4relative] [%15.15thread] [%-40.40logger{39}]  [%X{mdc_trace_id}]: %msg%n</pattern>
+            <charset>UTF-8</charset> <!-- 此处设置字符集，防止中文乱码 -->
+        </encoder>
+        <!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+        <!--            &lt;!&ndash; 配置日志过滤 只打印INFO日志 其余全部过滤掉&ndash;&gt;-->
+        <!--            <level>INFO</level>-->
+        <!--            <onMatch>ACCEPT</onMatch>-->
+        <!--            <onMismatch>DENY</onMismatch>-->
+        <!--        </filter>-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+
+    <!--ERROR 级别日志-->
+    <!--    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+    <!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+    <!--            &lt;!&ndash; 按天回滚 daily &ndash;&gt;-->
+    <!--            &lt;!&ndash; log.dir 在maven profile里配置 &ndash;&gt;-->
+    <!--            <fileNamePattern>${CATALINA_HOME}/logs/%d{yyyy-MM-dd}/meetplace-error%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>-->
+    <!--            &lt;!&ndash; 日志最大的历史 360天 &ndash;&gt;-->
+    <!--            <maxHistory>${log.maxHistory}</maxHistory>-->
+    <!--            &lt;!&ndash; 日志总保存量为100GB &ndash;&gt;-->
+    <!--            <totalSizeCap>${log.maxFileSize}</totalSizeCap>-->
+    <!--            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+    <!--                &lt;!&ndash;文件达到 最大100MB时会被压缩和切割 &ndash;&gt;-->
+    <!--                <maxFileSize>100MB</maxFileSize>-->
+    <!--            </timeBasedFileNamingAndTriggeringPolicy>-->
+    <!--        </rollingPolicy>-->
+    <!--        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
+    <!--            &lt;!&ndash;<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}:  %msg%n</pattern>&ndash;&gt;-->
+    <!--            <pattern>[%d{MM-dd HH:mm:ss.SSS }] [%thread] [%.-1level] [%F %L] %m%n</pattern>-->
+    <!--            <charset>UTF-8</charset> &lt;!&ndash; 此处设置字符集，防止中文乱码 &ndash;&gt;-->
+    <!--        </encoder>-->
+    <!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+    <!--            &lt;!&ndash; 配置日志过滤 只打印ERROR日志 其余全部过滤掉&ndash;&gt;-->
+    <!--            <level>ERROR</level>-->
+    <!--            <onMatch>ACCEPT</onMatch>-->
+    <!--            <onMismatch>DENY</onMismatch>-->
+    <!--        </filter>-->
+    <!--    </appender>-->
+
+    <!--    &lt;!&ndash;WARNING 级别日志&ndash;&gt;-->
+    <!--    <appender name="WARNING" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+    <!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+    <!--            &lt;!&ndash; 按天回滚 daily &ndash;&gt;-->
+    <!--            &lt;!&ndash; log.dir 在maven profile里配置 &ndash;&gt;-->
+    <!--            <fileNamePattern>${CATALINA_HOME}/logs/%d{yyyy-MM-dd}/meetplace-warning%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>-->
+    <!--            &lt;!&ndash; 日志最大的历史 360天 &ndash;&gt;-->
+    <!--            <maxHistory>${log.maxHistory}</maxHistory>-->
+    <!--            &lt;!&ndash; 日志总保存量为100GB &ndash;&gt;-->
+    <!--            <totalSizeCap>${log.maxFileSize}</totalSizeCap>-->
+    <!--            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+    <!--                &lt;!&ndash;文件达到 最大100MB时会被压缩和切割 &ndash;&gt;-->
+    <!--                <maxFileSize>100MB</maxFileSize>-->
+    <!--            </timeBasedFileNamingAndTriggeringPolicy>-->
+    <!--        </rollingPolicy>-->
+    <!--        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
+    <!--            &lt;!&ndash;<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}:  %msg%n</pattern>&ndash;&gt;-->
+    <!--            <pattern>[%d{MM-dd HH:mm:ss.SSS }] [%thread] [%.-1level] [%F %L] %m%n</pattern>-->
+    <!--            <charset>UTF-8</charset> &lt;!&ndash; 此处设置字符集，防止中文乱码 &ndash;&gt;-->
+    <!--        </encoder>-->
+    <!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+    <!--            &lt;!&ndash; 配置日志过滤 只打印ERROR日志 其余全部过滤掉&ndash;&gt;-->
+    <!--            <level>WARNING</level>-->
+    <!--            <onMatch>ACCEPT</onMatch>-->
+    <!--            <onMismatch>DENY</onMismatch>-->
+    <!--        </filter>-->
+    <!--    </appender>-->
+
+
+    <!-- 相当于logger元素，只是name值已经确定为root了 -->
+    <!--确定输出级别为info以上-->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="INFO"/>
+        <!--        <appender-ref ref="ERROR"/>-->
+        <!--        <appender-ref ref="WARNING"/>-->
+    </root>
+    <logger name="com.kennycason.kumo.WordCloud">
+        <level value="OFF"/>
+    </logger>
+</configuration>

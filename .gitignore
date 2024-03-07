@@ -1,0 +1,10 @@
+/target/
+/.idea/
+/dependency-reduced-pom.xml
+/logs/
+*.png
+*.jpg
+*.gif
+*.html
+*.pdf
+*.txt
